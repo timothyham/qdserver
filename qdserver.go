@@ -31,7 +31,10 @@ func main() {
 	fmt.Printf("QDServer version %s\nServing %s on %s\n", VersionString, *dir, portStr)
 
 	http.Handle("/", NewLoggingHandler(*dir))
-	http.ListenAndServe(portStr, nil)
+	err := http.ListenAndServe(portStr, nil)
+	if err != nil {
+		fmt.Printf("Error '%v'\n", err)
+	}
 }
 
 type loggingHandler struct {
